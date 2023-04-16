@@ -65,6 +65,75 @@ if (isset($_SESSION['my-value'])) {
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <script type="text/javascript" src="./assets/include/jquery-1.8.js"></script>
     <script type="text/javascript">
+
+var staticProperty;
+
+function preview() {
+    frame.src = URL.createObjectURL(event.target.files[0]);
+    getBaseUrl();
+}
+
+function getBaseUrl() {
+    var file = document.querySelector('input[type=file]')['files'][0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+        staticProperty = reader.result;
+        console.log(staticProperty);
+    };
+    reader.readAsDataURL(file);
+}
+
+function add_info_data() {
+    // alert("hello");
+    var jsonData = {};
+
+    var formData = $("#registerFacial").serializeArray();
+    // console.log(formData);
+
+    $.each(formData, function() {
+        if (jsonData[this.name]) {
+            if (!jsonData[this.name].push) {
+                jsonData[this.name] = [jsonData[this.name]];
+            }
+            jsonData[this.name].push(this.value || '');
+        } else {
+            jsonData[this.name] = this.value || '';
+        }
+
+
+    });
+    //alert(jsonData);
+    jsonData['image'] = staticProperty;
+    
+    str = JSON.stringify(jsonData);
+    // console.log(str);
+    //   alert(str);
+    $.ajax({
+            data: str,
+            url: 'assets/include/add_info_enrollPerson.php',
+            type: 'POST',
+            processData: false,
+            contentType: 'application/json'
+        })
+        
+        .done(function(msg) {
+            alert('ok');
+            alert(msg);
+            var obj = jQuery.parseJSON(msg);
+            console.log(obj);
+
+            alert(obj.mesage);
+            
+        }),
+        error(function(r, s, e) {
+            alert("Unexpected error:" + e);
+            console.log(r);
+            console.log(s);
+            console.log(e);
+        });
+    return false;
+
+}
         //Main Location Menu
         function selectMain(data) {
             //  alert(data);
@@ -265,8 +334,6 @@ if (isset($_SESSION['my-value'])) {
                                                         <span class="bmd-help"></span>
                                                     </div>
                                                 </div>
-
-
 
 
                                             </div>

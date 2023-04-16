@@ -39,6 +39,7 @@ if ($result->num_rows > 0) {
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <script type="text/javascript" src="./assets/include/jquery-1.8.js"></script>
   <script type="text/javascript">
+    
     //Add Main Location
     function add_main_data() {
 
@@ -513,9 +514,9 @@ if ($result->num_rows > 0) {
 
                           <td class="td-actions text-right">
 
-                            <button type="button" rel="tooltip" class="btn btn-success btn-link" onclick="edit_info('calledit',<?php echo $info_id; ?>)">
+                            <!-- <button type="button" rel="tooltip" class="btn btn-success btn-link" onclick="edit_info('calledit',<?php echo $info_id; ?>)">
                               <i class="material-icons">edit</i>
-                            </button>
+                            </button> -->
                             <button type="button" rel="tooltip" class="btn btn-danger btn-link" onclick="dell_info_data(<?php echo $info_id; ?>)">
                               <i class="material-icons">close</i>
                             </button>
